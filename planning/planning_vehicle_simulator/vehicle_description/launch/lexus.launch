@@ -1,0 +1,26 @@
+<!-- -->
+<launch>
+  <arg name="base_frame" default="/base_link"/>
+  <arg name="topic_name" default="vehicle_model"/>
+  <arg name="offset_x" default="1.2"/>
+  <arg name="offset_y" default="0.0"/>
+  <arg name="offset_z" default="0.0"/>
+  <arg name="offset_roll" default="0.0"/> <!-- degree -->
+  <arg name="offset_pitch" default="0.0"/> <!-- degree -->
+  <arg name="offset_yaw" default="0.0"/> <!-- degree -->
+  <arg name="model_path" default="$(find vehicle_description)/urdf/lexus.urdf" />
+  <arg name="gui" default="False" />
+
+  <param name="robot_description" textfile="$(arg model_path)" />
+  <param name="use_gui" value="$(arg gui)"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <!-- 
+  <node name="vehicle_control" pkg="vehicle_control" type="vehicle_control" output="screen" />
+  -->
+  <node name="vehicle_ism_model" pkg="vehicle_sim_model" type="vehicle_control_test" output="screen" />
+  <!-- 运行rviz可视化界面 -->
+  <!-- node name="rviz" pkg="rviz" type="rviz" args="-d $(find vehicle_description)/config/rviz_config.rviz" required="true" / -->
+
+</launch>

@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<robot name="car">
+
+
+    <link name="odom">
+        <visual name="base_visual">
+          <origin xyz="0 0 0.0" rpy="1.57 0 3.14" />
+          <geometry>
+            <mesh filename="package://vehicle_description/mesh/lexus.dae" scale="1.0 1.0 1.0"/>
+          </geometry>
+        </visual>
+    </link>
+
+    <link name="wheel_1">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.05" radius="0.05" />
+            </geometry>
+            <material name="white">
+                <color rgba="0 0 0 1" />
+            </material>
+        </visual>
+    </link>
+
+    <link name="wheel_2">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.05" radius="0.05" />
+            </geometry>
+            <material name="white">
+                <color rgba="0 0 0 1" />
+            </material>
+        </visual>
+    </link>
+
+    <link name="wheel_3">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.05" radius="0.05" />
+            </geometry>
+            <material name="white">
+                <color rgba="0 0 0 1" />
+            </material>
+        </visual>
+    </link>
+
+    <link name="wheel_4">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.05" radius="0.05" />
+            </geometry>
+            <material name="white">
+                <color rgba="0 0 0 1" />
+            </material>
+        </visual>
+    </link>
+
+    <joint name="joint_base_wheel1" type="continuous">
+        <origin xyz="1.395 0.82 0.35" rpy="1.5707 0 0" />
+        <axis xyz="0 0 1" />
+        <parent link="odom" />
+        <child link="wheel_1" />
+    </joint>
+
+     <joint name="joint_base_wheel2" type="continuous">
+        <origin xyz="1.395 -0.82 0.35" rpy="1.5707 0 0" />
+        <axis xyz="0 0 1" />
+        <parent link="odom" />
+        <child link="wheel_2" />
+    </joint>
+
+     <joint name="joint_base_wheel3" type="continuous">
+        <origin xyz="-1.395 0.82 0.35" rpy="1.5707 0 0" />
+        <axis xyz="0 0 1" />
+        <parent link="odom" />
+        <child link="wheel_3" />
+    </joint>
+
+     <joint name="joint_base_wheel4" type="continuous">
+        <origin xyz="-1.395 -0.82 0.35" rpy="1.5707 0 0" />
+        <axis xyz="0 0 1" />
+        <parent link="odom" />
+        <child link="wheel_4" />
+    </joint>
+
+</robot>

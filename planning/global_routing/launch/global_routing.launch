@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<launch>
+    
+    <param name="hdmap_file_path" value="/home/cg/cardemo/data/hdmap/lanelet2_map.osm" />
+    <param name="origin_pos_lat" value="35.90355580062" />
+    <param name="origin_pos_lon" value="139.93339979023" />
+    <param name="vehicle_vel" value="2" />
+    <param name="vehicle_acc" value="1" />
+
+    <!-- <include file="$(find lanelet2_interface_ros)/launch/set_lanelet_map.launch">
+        <arg name="map_file_name" value="/home/cg/cardemo/data/hdmap/gdut_v0.5.osm" />
+        <arg name="lat_origin" value="23.03651104597" />
+        <arg name="lon_origin" value="113.39110359555" />
+    </include> -->
+
+ <arg name="pointcloud_map_path" value="/home/cg/cardemo/data/pcd/49QGF448500.pcd" />
+  <arg name="lanelet2_map_path" value="/home/cg/cardemo/data/hdmap/lanelet2_map.osm"/>
+  <group ns="map">
+  
+    <include file="$(find map_loader)/launch/lanelet2_map_loader.launch">
+        <arg name="file_name" default="$(arg lanelet2_map_path)" />
+        <arg name="lat_origin" value="35.90355580062" />
+        <arg name="lon_origin" value="139.93339979023" />
+    </include>
+
+    <node pkg="map_loader" type="pointcloud_map_loader" name="pointcloud_map_loader" args="$(arg pointcloud_map_path)">
+      <remap from="~output/pointcloud_map" to="/map/pointcloud_map" />
+    </node>
+
+    <include file="$(find map_tf_generator)/launch/map_tf_generator.launch">
+      <arg name="input_map_points_topic" value="/map/pointcloud_map" />
+    </include>
+  </group>
+
+
+    <!-- <node pkg="ui_console" type="ui_console" name="ui_console" output="screen" /> -->
+    <node pkg="global_routing" type="global_routing" name="global_routing" output="screen" />
+    <!-- Start rviz with a pre-configured AerialMap instance. It will use the fake GPS fix from above. -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find global_routing)/config/global_routing.rviz"/>
+    <!-- Static fake TF transform -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="static_tf_fake" args="0 0 0 0.0 0 0 map base_link" />
+    <!-- include file="$(find vehicle_description)/launch/lexus.launch" /-->
+    <include file="$(find vehicle_description)/launch/lexus.launch" />
+    <!-- node pkg="rviz" type="rviz" name="rviz" args="-d $(find rviz_satellite)/launch/demo.rviz"/> -->
+    <!-- start rviz -->
+    <!-- <node pkg="rviz" type="rviz" name="my_rviz" args="-d $(find lanelet_rviz_plugin_ros)/launch/sample_lanelet_viz.rviz" output="screen" /> -->
+
+</launch>

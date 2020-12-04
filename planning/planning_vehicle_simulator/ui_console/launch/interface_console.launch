@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+
+    <param name="param1" value="1111" />
+    <param name="param2" value="2222" />
+    <param name="param3" value="3333" />
+
+
+    <node pkg="global_routing" type="global_routing" name="global_routing" output="screen" />
+
+
+</launch>
