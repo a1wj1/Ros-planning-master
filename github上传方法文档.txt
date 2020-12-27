@@ -1,6 +1,7 @@
 步骤：
 打开项目文件夹路径
 git init
+git 
 git add README.md(这一步可以在创建仓库时建立README.md)
 git commit -m "first commit"
 git remote add origin  git的地址
